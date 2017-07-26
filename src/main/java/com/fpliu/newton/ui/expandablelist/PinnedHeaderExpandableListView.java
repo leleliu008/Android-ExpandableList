@@ -48,9 +48,9 @@ public class PinnedHeaderExpandableListView extends ExpandableListView implement
          * 返回一个view对象即可
          * 注意：view必须要有LayoutParams
          */
-        public View getPinnedHeader();
+        View getPinnedHeader();
 
-        public void updatePinnedHeader(View headerView, int firstVisibleGroupPos);
+        void updatePinnedHeader(View headerView, int firstVisibleGroupPos);
     }
 
     private View mHeaderView;

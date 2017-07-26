@@ -23,9 +23,9 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         ExpandableListView.OnChildClickListener,
         ExpandableListView.OnGroupClickListener,
         PinnedHeaderExpandableListView.OnHeaderUpdateListener,
-        RefreshOrLoadMoreCallback<PullablePinnedHeaderExpandableListView> {
+        RefreshOrLoadMoreCallback<PinnedHeaderExpandableListView> {
 
-    private PullableViewContainer<PullablePinnedHeaderExpandableListView> pullableViewContainer;
+    private PullableViewContainer<PinnedHeaderExpandableListView> pullableViewContainer;
 
     private ExpandableItemAdapter<T> itemAdapter;
 
@@ -45,10 +45,10 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
 
         linearLayout.addView(bodyBeforePanel, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        pullableViewContainer = new PullableViewContainer<>(this, PullablePinnedHeaderExpandableListView.class);
+        pullableViewContainer = new PullableViewContainer<>(this, PinnedHeaderExpandableListView.class);
         linearLayout.addView(pullableViewContainer, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
-        PullablePinnedHeaderExpandableListView expandableListView = pullableViewContainer.getPullableView();
+        PinnedHeaderExpandableListView expandableListView = pullableViewContainer.getPullableView();
         expandableListView.setCacheColorHint(Color.TRANSPARENT);
         expandableListView.setDivider(new ColorDrawable(Color.TRANSPARENT));
         expandableListView.setChildDivider(new ColorDrawable(Color.TRANSPARENT));
@@ -90,7 +90,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         });
     }
 
-    protected final PullableViewContainer<PullablePinnedHeaderExpandableListView> getPullableViewContainer() {
+    protected final PullableViewContainer<PinnedHeaderExpandableListView> getPullableViewContainer() {
         return pullableViewContainer;
     }
 
@@ -171,10 +171,10 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
     }
 
     protected final void canPullDown(boolean canPullDown) {
-        pullableViewContainer.getPullableView().canPullDown(canPullDown);
+        pullableViewContainer.getRefreshLayout().setEnableRefresh(canPullDown);
     }
 
     protected final void canPullUp(boolean canPullUp) {
-        pullableViewContainer.getPullableView().canPullUp(canPullUp);
+        pullableViewContainer.getRefreshLayout().setEnableLoadmore(canPullUp);
     }
 }

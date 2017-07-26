@@ -3,13 +3,11 @@ package com.fpliu.newton.ui.expandablelist;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.fpliu.newton.ui.pullable.Pullable;
-
 
 /**
  * @author 792793182@qq.com 2016-07-30.
  */
-public class PullablePinnedHeaderExpandableListView extends PinnedHeaderExpandableListView implements Pullable {
+public class PullablePinnedHeaderExpandableListView extends PinnedHeaderExpandableListView {
 
     private boolean canPullUp_ = true;
 
@@ -27,17 +25,14 @@ public class PullablePinnedHeaderExpandableListView extends PinnedHeaderExpandab
         super(context, attrs, defStyle);
     }
 
-    @Override
     public void canPullUp(boolean canPullUp) {
         this.canPullUp_ = canPullUp;
     }
 
-    @Override
     public void canPullDown(boolean canPullDown) {
         this.canPullDown_ = canPullDown;
     }
 
-    @Override
     public boolean canPullDown() {
         if (canPullDown_) {
             if (getCount() == 0) {
@@ -55,7 +50,6 @@ public class PullablePinnedHeaderExpandableListView extends PinnedHeaderExpandab
         return false;
     }
 
-    @Override
     public boolean canPullUp() {
         if (canPullUp_) {
             if (getCount() == 0) {
