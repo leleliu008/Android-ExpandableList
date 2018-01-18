@@ -76,7 +76,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<T extends G
         expandableListView.setOnChildClickListener(this);
         expandableListView.setOnGroupClickListener(this);
 
-        baseView.addContentView(linearLayout);
+        baseView.addViewInBody(linearLayout);
 
         pullableViewContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

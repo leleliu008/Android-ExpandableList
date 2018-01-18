@@ -79,7 +79,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
 
         linearLayout.addView(bodyAfterPanel, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        addContentView(linearLayout);
+        addViewInBody(linearLayout);
 
         pullableViewContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
