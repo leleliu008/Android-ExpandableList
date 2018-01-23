@@ -15,6 +15,7 @@ import com.fpliu.newton.ui.base.BaseView;
 import com.fpliu.newton.ui.base.LazyFragment;
 import com.fpliu.newton.ui.pullable.PullableViewContainer;
 import com.fpliu.newton.ui.pullable.RefreshOrLoadMoreCallback;
+import com.fpliu.newton.ui.stateview.StateView;
 
 import java.util.List;
 
@@ -47,7 +48,8 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<T extends G
 
         linearLayout.addView(bodyBeforePanel, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        pullableViewContainer = new PullableViewContainer<>(getActivity(), PinnedHeaderExpandableListView.class);
+        pullableViewContainer = new PullableViewContainer<>(PinnedHeaderExpandableListView.class, new StateView(getActivity()));
+        pullableViewContainer.setDefaultLayout();
         linearLayout.addView(pullableViewContainer, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
         PinnedHeaderExpandableListView expandableListView = pullableViewContainer.getPullableView();
@@ -160,10 +162,10 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<T extends G
     }
 
     protected final void canPullDown(boolean canPullDown) {
-        pullableViewContainer.getRefreshLayout().setEnableRefresh(canPullDown);
+        pullableViewContainer.setEnableRefresh(canPullDown);
     }
 
     protected final void canPullUp(boolean canPullUp) {
-        pullableViewContainer.getRefreshLayout().setEnableLoadmore(canPullUp);
+        pullableViewContainer.setEnableLoadmore(canPullUp);
     }
 }
