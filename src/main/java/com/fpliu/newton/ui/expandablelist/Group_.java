@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author 792793182@qq.com 2016-07-28.
  */
-public interface Group_ {
+public interface Group_<T> {
 
-    <T> List<T> getChildren();
+    List<T> getChildren();
 }

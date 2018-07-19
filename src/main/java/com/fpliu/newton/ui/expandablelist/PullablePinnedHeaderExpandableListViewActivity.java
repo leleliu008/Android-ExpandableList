@@ -20,22 +20,22 @@ import java.util.List;
 /**
  * @author 792793182@qq.com 2016-07-28.
  */
-public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends Group_> extends BaseActivity implements
-        ExpandableListView.OnChildClickListener,
-        ExpandableListView.OnGroupClickListener,
-        PinnedHeaderExpandableListView.OnHeaderUpdateListener,
-        RefreshOrLoadMoreCallback<PinnedHeaderExpandableListView> {
+public abstract class PullablePinnedHeaderExpandableListViewActivity<Child, T extends Group_<Child>> extends BaseActivity implements
+    ExpandableListView.OnChildClickListener,
+    ExpandableListView.OnGroupClickListener,
+    PinnedHeaderExpandableListView.OnHeaderUpdateListener,
+    RefreshOrLoadMoreCallback<PinnedHeaderExpandableListView> {
 
     private PullableViewContainer<PinnedHeaderExpandableListView> pullableViewContainer;
 
-    private ExpandableItemAdapter<T> itemAdapter;
+    private ExpandableItemAdapter<Child, T> itemAdapter;
 
     private LinearLayout bodyBeforePanel;
 
     private LinearLayout bodyAfterPanel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         LinearLayout linearLayout = new LinearLayout(this);
@@ -59,7 +59,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         expandableListView.setDividerHeight(0);
 
         if (itemAdapter == null) {
-            itemAdapter = new ExpandableItemAdapter<T>(null) {
+            itemAdapter = new ExpandableItemAdapter<Child, T>(null) {
                 @Override
                 public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
                     return PullablePinnedHeaderExpandableListViewActivity.this.getGroupView(groupPosition, isExpanded, convertView, parent);
@@ -81,7 +81,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
 
         linearLayout.addView(bodyAfterPanel, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        addViewInBody(linearLayout);
+        addContentView(linearLayout);
 
         pullableViewContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -96,7 +96,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         return pullableViewContainer;
     }
 
-    protected final void setItemAdapter(ExpandableItemAdapter<T> itemAdapter) {
+    protected final void setItemAdapter(ExpandableItemAdapter<Child, T> itemAdapter) {
         this.itemAdapter = itemAdapter;
 
         if (pullableViewContainer != null) {
@@ -104,7 +104,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         }
     }
 
-    protected final ExpandableItemAdapter<?> getExpandableItemAdapter() {
+    protected final ExpandableItemAdapter<Child, T> getExpandableItemAdapter() {
         return itemAdapter;
     }
 
@@ -160,8 +160,8 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<T extends G
         return itemAdapter == null ? null : itemAdapter.getGroup(groupPosition);
     }
 
-    protected final <T> T getChild(int groupPosition, int childPosition) {
-        return itemAdapter == null ? null : (T) itemAdapter.getChild(groupPosition, childPosition);
+    protected final Child getChild(int groupPosition, int childPosition) {
+        return itemAdapter == null ? null : itemAdapter.getChild(groupPosition, childPosition);
     }
 
     protected final int getChildrenCount(int groupPosition) {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author 792793182@qq.com 2016-07-28.
  */
-public abstract class ExpandableItemAdapter<T extends Group_> extends BaseExpandableListAdapter {
+public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> extends BaseExpandableListAdapter {
 
     private List<T> groups;
 
@@ -63,17 +63,17 @@ public abstract class ExpandableItemAdapter<T extends Group_> extends BaseExpand
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
+    public Child getChild(int groupPosition, int childPosition) {
         if (groups == null) {
             return null;
         }
 
-        Group_ group = groups.get(groupPosition);
+        Group_<Child> group = groups.get(groupPosition);
         if (group == null) {
             return null;
         }
 
-        List<?> children = group.getChildren();
+        List<Child> children = group.getChildren();
         if (children == null) {
             return null;
         }
