@@ -177,6 +177,6 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<Child, T ex
     }
 
     protected final void canPullUp(boolean canPullUp) {
-        pullableViewContainer.setEnableLoadmore(canPullUp);
+        pullableViewContainer.setEnableLoadMore(canPullUp);
     }
 }

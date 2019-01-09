@@ -166,6 +166,6 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
     }
 
     protected final void canPullUp(boolean canPullUp) {
-        pullableViewContainer.setEnableLoadmore(canPullUp);
+        pullableViewContainer.setEnableLoadMore(canPullUp);
     }
 }
