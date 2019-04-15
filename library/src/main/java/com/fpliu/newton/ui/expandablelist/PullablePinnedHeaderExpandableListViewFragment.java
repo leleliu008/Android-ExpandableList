@@ -66,6 +66,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Group, Chil
                 public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
                     return PullablePinnedHeaderExpandableListViewFragment.this.getGroupView(groupPosition, isExpanded, convertView, parent);
                 }
+
                 @Override
                 public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                     return PullablePinnedHeaderExpandableListViewFragment.this.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
@@ -153,9 +154,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Group, Chil
         return itemAdapter == null ? null : itemAdapter.getGroup(groupPosition);
     }
 
-    protected final List<Child> getChildren(Group group) {
-        return null;
-    }
+    protected abstract List<Child> getChildren(Group group);
 
     protected final Child getChild(int groupPosition, int childPosition) {
         return itemAdapter == null ? null : itemAdapter.getChild(groupPosition, childPosition);

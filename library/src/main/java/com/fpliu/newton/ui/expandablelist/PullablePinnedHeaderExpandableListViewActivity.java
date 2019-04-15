@@ -163,9 +163,7 @@ public abstract class PullablePinnedHeaderExpandableListViewActivity<Group, Chil
         return itemAdapter == null ? null : itemAdapter.getGroup(groupPosition);
     }
 
-    protected final List<Child> getChildren(Group group) {
-        return null;
-    }
+    protected abstract List<Child> getChildren(Group group);
 
     protected final Child getChild(int groupPosition, int childPosition) {
         return itemAdapter == null ? null : itemAdapter.getChild(groupPosition, childPosition);
