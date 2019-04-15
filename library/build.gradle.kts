@@ -36,7 +36,7 @@ android {
         minSdkVersion(18)
         targetSdkVersion(28)
         versionCode = 2
-        versionName = "2.0.0"
+        versionName = "2.0.1"
     }
 
     sourceSets {
@@ -65,7 +65,7 @@ android {
 
 dependencies {
     //https://bintray.com/fpliu/newton
-    api("com.fpliu:Android-BaseUI:2.0.0")
+    api("com.fpliu:Android-BaseUI:2.0.1")
     api("com.fpliu:Android-Pullable:2.0.0")
 }
 

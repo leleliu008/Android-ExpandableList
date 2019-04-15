@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author 792793182@qq.com 2016-07-28.
  */
-public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T extends Group_<Child>> extends LazyFragment implements
+public abstract class PullablePinnedHeaderExpandableListViewFragment<Group, Child> extends LazyFragment implements
     ExpandableListView.OnChildClickListener,
     ExpandableListView.OnGroupClickListener,
     PinnedHeaderExpandableListView.OnHeaderUpdateListener,
@@ -32,7 +32,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
 
     private PullableViewContainer<PinnedHeaderExpandableListView> pullableViewContainer;
 
-    private ExpandableItemAdapter<Child, T> itemAdapter;
+    private ExpandableItemAdapter<Group, Child> itemAdapter;
 
     @Override
     protected void onCreateViewLazy(BaseView baseView, Bundle savedInstanceState) {
@@ -61,15 +61,19 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
         expandableListView.setDividerHeight(0);
 
         if (itemAdapter == null) {
-            itemAdapter = new ExpandableItemAdapter<Child, T>(null) {
+            itemAdapter = new ExpandableItemAdapter<Group, Child>(null) {
                 @Override
                 public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
                     return PullablePinnedHeaderExpandableListViewFragment.this.getGroupView(groupPosition, isExpanded, convertView, parent);
                 }
-
                 @Override
                 public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                     return PullablePinnedHeaderExpandableListViewFragment.this.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+                }
+
+                @Override
+                public List<Child> getChildren(Group group) {
+                    return PullablePinnedHeaderExpandableListViewFragment.this.getChildren(group);
                 }
             };
         }
@@ -93,7 +97,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
         return pullableViewContainer;
     }
 
-    protected final void setItemAdapter(ExpandableItemAdapter<Child, T> itemAdapter) {
+    protected final void setItemAdapter(ExpandableItemAdapter<Group, Child> itemAdapter) {
         this.itemAdapter = itemAdapter;
 
         if (pullableViewContainer != null) {
@@ -109,7 +113,7 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
         bodyBeforePanel.addView(bodyBeforeView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
-    protected final ExpandableItemAdapter<Child, T> getExpandableItemAdapter() {
+    protected final ExpandableItemAdapter<Group, Child> getExpandableItemAdapter() {
         return itemAdapter;
     }
 
@@ -137,16 +141,20 @@ public abstract class PullablePinnedHeaderExpandableListViewFragment<Child, T ex
         return null;
     }
 
-    protected final void setGroupItems(List<T> groups) {
+    protected final void setGroupItems(List<Group> groups) {
         itemAdapter.setGroupItems(groups);
     }
 
-    protected final void addGroupItems(List<T> groups) {
+    protected final void addGroupItems(List<Group> groups) {
         itemAdapter.addGroupItems(groups);
     }
 
-    protected final T getGroup(int groupPosition) {
+    protected final Group getGroup(int groupPosition) {
         return itemAdapter == null ? null : itemAdapter.getGroup(groupPosition);
+    }
+
+    protected final List<Child> getChildren(Group group) {
+        return null;
     }
 
     protected final Child getChild(int groupPosition, int childPosition) {

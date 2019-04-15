@@ -7,20 +7,20 @@ import java.util.List;
 /**
  * @author 792793182@qq.com 2016-07-28.
  */
-public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> extends BaseExpandableListAdapter {
+public abstract class ExpandableItemAdapter<Group, Child> extends BaseExpandableListAdapter {
 
-    private List<T> groups;
+    private List<Group> groups;
 
-    public ExpandableItemAdapter(List<T> groups) {
+    public ExpandableItemAdapter(List<Group> groups) {
         this.groups = groups;
     }
 
-    public void setGroupItems(List<T> groups) {
+    public void setGroupItems(List<Group> groups) {
         this.groups = groups;
         notifyDataSetChanged();
     }
 
-    public void addGroupItems(List<T> groups) {
+    public void addGroupItems(List<Group> groups) {
         if (this.groups == null) {
             this.groups = groups;
         } else {
@@ -44,12 +44,12 @@ public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> exte
             return 0;
         }
 
-        Group_ group = groups.get(groupPosition);
+        Group group = groups.get(groupPosition);
         if (group == null) {
             return 0;
         }
 
-        List<?> children = group.getChildren();
+        List<Child> children = getChildren(group);
         if (children == null) {
             return 0;
         }
@@ -58,7 +58,7 @@ public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> exte
     }
 
     @Override
-    public T getGroup(int groupPosition) {
+    public Group getGroup(int groupPosition) {
         return groups == null ? null : groups.get(groupPosition);
     }
 
@@ -68,12 +68,12 @@ public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> exte
             return null;
         }
 
-        Group_<Child> group = groups.get(groupPosition);
+        Group group = groups.get(groupPosition);
         if (group == null) {
             return null;
         }
 
-        List<Child> children = group.getChildren();
+        List<Child> children = getChildren(group);
         if (children == null) {
             return null;
         }
@@ -100,4 +100,6 @@ public abstract class ExpandableItemAdapter<Child, T extends Group_<Child>> exte
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+    public abstract List<Child> getChildren(Group group);
 }
